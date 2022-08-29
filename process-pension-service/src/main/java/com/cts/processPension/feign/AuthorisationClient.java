@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * Feign client to connect with authorization micro-service for token validation
  *
  */
-@FeignClient("AUTH-SERVICE")
+@FeignClient(name="authorization-service", url="${AUTHORIZATION_SERVICE_URI:http://localhost:8081}")
 public interface AuthorisationClient {
 	
 	/**

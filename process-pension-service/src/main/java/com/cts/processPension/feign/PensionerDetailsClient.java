@@ -10,7 +10,8 @@ import com.cts.processPension.model.PensionerDetail;
  * Feign client to connect with Pension details micro-service
  *
  */
-@FeignClient("PENSIONER-DETAIL-SERVICE")
+
+@FeignClient(name="pensioner-detail-service", url="${PENSIONER-DETAIL-SERVICE:http://localhost:8083}")
 public interface PensionerDetailsClient {
 	@GetMapping("/pensionerDetailByAadhaar/{aadhaarNumber}")
 	public PensionerDetail getPensionerDetailByAadhaar(@PathVariable String aadhaarNumber);
