@@ -1,0 +1,33 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+    - echo Logging in to Amazon ECR...
+    - aws --version
+    - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 781527903861.dkr.ecr.ap-south-1.amazonaws.com
+    - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+    - IMAGE_URI=${REPOSITORY_URI}:${TAG}
+  build:
+    commands:
+    - echo Build started on `date`
+    - echo $IMAGE_URI
+    - cd authorization-service
+    - mvn compile
+    - mvn package
+    - echo Building the Docker image...
+    - docker build -t auth-service.jar .
+    - docker tag auth-service.jar 781527903861.dkr.ecr.ap-south-1.amazonaws.com/pms_authorization:authorization-service
+  post_build:
+    commands:
+    - printenv
+    - echo $(docker images)
+    - echo Pushing docker image
+    - docker push 781527903861.dkr.ecr.ap-south-1.amazonaws.com/pms_authorization:authorization-service
+    - echo push completed
+    - printf '[{"name":"authorization","imageUri":"%s"}]' 781527903861.dkr.ecr.ap-south-1.amazonaws.com/pms_authorization:authorization-service > imagedefinitions.json
+artifacts:
+  files:
+  - authorization-service/imagedefinitions.json
