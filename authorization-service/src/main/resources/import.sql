@@ -1,0 +1,1 @@
+insert into user_credentials values ('Raman1', '$2y$10$Ht4DcTjTbuG566b.olDekOuV4svBpS/Ao0.HqwyDbcamzK5n9fiia', 'ADMIN'),('Raman2', '$2y$10$Ht4DcTjTbuG566b.olDekOuV4svBpS/Ao0.HqwyDbcamzK5n9fiia', 'ADMIN');
