@@ -82,21 +82,11 @@ public class ProcessPensionServiceImpl implements ProcessPensionService {
 			bankCharges = 550;
 		}
 
-		if (pensionDetail.getPensionType().equalsIgnoreCase("self")) {
-			if(pensionDetail.getBank().getBankType().equalsIgnoreCase("public")){
-				pensionAmount = (pensionDetail.getSalary() * 0.8 + pensionDetail.getAllowance()) - 500;
-			}
-			else{
-				pensionAmount = (pensionDetail.getSalary() * 0.8 + pensionDetail.getAllowance()) - 550;
-			}
+		if (pensionDetail.getPensionType().equalsIgnoreCase("self")) {			
+				pensionAmount = (pensionDetail.getSalary() * 0.8 + pensionDetail.getAllowance());			
 		}
-		else if (pensionDetail.getPensionType().equalsIgnoreCase("family")) {
-			if(pensionDetail.getBank().getBankType().equalsIgnoreCase("public")){
-				pensionAmount = (pensionDetail.getSalary() * 0.5 + pensionDetail.getAllowance()) - 500;
-			}
-			else{
-				pensionAmount = (pensionDetail.getSalary() * 0.5 + pensionDetail.getAllowance()) - 550;
-			}
+		else if (pensionDetail.getPensionType().equalsIgnoreCase("family")) {			
+				pensionAmount = (pensionDetail.getSalary() * 0.5 + pensionDetail.getAllowance());
 		}
 		return new PensionDetail(
 				pensionDetail.getName(),
